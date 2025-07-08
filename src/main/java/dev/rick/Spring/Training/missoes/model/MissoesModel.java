@@ -3,11 +3,17 @@ package dev.rick.Spring.Training.missoes.model;
 import dev.rick.Spring.Training.missoes.enums.Dificuldade;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MissoesModel {
 
     @Id
@@ -19,26 +25,5 @@ public class MissoesModel {
     @OneToMany(mappedBy = "missoes")
     private List<NinjaModel> ninjas;
 
-    public MissoesModel() {}
 
-    public MissoesModel(String name, Dificuldade dificuldade) {
-        this.name = name;
-        this.dificuldade = dificuldade;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Dificuldade getDificuldade() {
-        return dificuldade;
-    }
-
-    public void setDificuldade(Dificuldade dificuldade) {
-        this.dificuldade = dificuldade;
-    }
 }
