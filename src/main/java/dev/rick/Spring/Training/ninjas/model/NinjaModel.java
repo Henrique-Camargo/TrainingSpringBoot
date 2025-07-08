@@ -1,6 +1,9 @@
-package dev.rick.Spring.Training.model;
+package dev.rick.Spring.Training.ninjas.model;
 
+import dev.rick.Spring.Training.missoes.model.MissoesModel;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro_ninja")
@@ -12,6 +15,10 @@ public class NinjaModel {
     private String name;
     private Integer idade;
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
+    private MissoesModel missoes;
 
     public NinjaModel() {}
 

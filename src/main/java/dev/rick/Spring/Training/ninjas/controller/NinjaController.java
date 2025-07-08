@@ -1,15 +1,11 @@
-package dev.rick.Spring.Training.controller;
+package dev.rick.Spring.Training.ninjas.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("/ninjas")
 public class NinjaController {
 
-    @GetMapping("/boasvindas")
-    public String boasVindas() {
-        return "esta e minha primeira rota";
-    }
 }
