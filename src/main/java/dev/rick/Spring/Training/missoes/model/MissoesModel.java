@@ -1,5 +1,6 @@
 package dev.rick.Spring.Training.missoes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.rick.Spring.Training.missoes.enums.Dificuldade;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import jakarta.persistence.*;
@@ -23,6 +24,7 @@ public class MissoesModel {
     private Dificuldade dificuldade;
 
     @OneToMany(mappedBy = "missoes")
+    @JsonIgnore
     private List<NinjaModel> ninjas;
 
 
