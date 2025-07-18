@@ -26,9 +26,9 @@ public class NinjaController {
        return ninjaService.FindAll();
     }
 
-    @GetMapping("/todosID")
-    public String MostrarPorID(){
-        return "Mostrar por ID";
+    @GetMapping("/all/{id}")
+    public NinjaModel findById(@PathVariable Long id){
+        return ninjaService.findById(id);
     }
 
     @PutMapping("/alterar")
