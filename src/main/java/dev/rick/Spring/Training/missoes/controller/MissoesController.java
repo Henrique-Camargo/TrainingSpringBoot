@@ -23,7 +23,10 @@ public class MissoesController {
         return missoesService.findAll();
     }
 
-    //@GetMapping("id")
+    @GetMapping("/{id}")
+    public MissoesModel findById(@PathVariable Long id){
+        return missoesService.findById(id);
+    }
 
     //@PutMapping
 
