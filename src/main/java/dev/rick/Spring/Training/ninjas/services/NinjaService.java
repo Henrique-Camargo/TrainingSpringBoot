@@ -26,4 +26,7 @@ public class NinjaService {
         return findById.orElse(null);
     }
 
+    public NinjaModel creat(NinjaModel ninja){
+        return ninjaRepository.save(ninja);
+    }
 }

@@ -16,9 +16,9 @@ public class NinjaController {
         this.ninjaService = ninjaService;
     }
 
-    @PostMapping("/criar")
-    public String Criar(){
-        return "Criar ninja";
+    @PostMapping("/creat")
+    public NinjaModel creat(@RequestBody NinjaModel ninja){
+        return ninjaService.creat(ninja);
     }
 
     @GetMapping("/all")
