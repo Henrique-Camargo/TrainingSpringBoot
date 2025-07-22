@@ -16,30 +16,34 @@ public class NinjaController {
         this.ninjaService = ninjaService;
     }
 
-    @PostMapping("/creat")
-    public NinjaModel creat(@RequestBody NinjaModel ninja){
-        return ninjaService.creat(ninja);
+    @PostMapping("/save")
+    public NinjaModel save(@RequestBody NinjaModel ninja){
+        return ninjaService.save(ninja);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/get")
     public List<NinjaModel> findAll(){
        return ninjaService.FindAll();
     }
 
-    @GetMapping("/all/{id}")
+    //
+    @GetMapping("/get/{id}")
     public NinjaModel findById(@PathVariable Long id){
         return ninjaService.findById(id);
     }
 
-    @PutMapping("/alterar")
-    public String AlterarNinjaPorID(){
-        return "Alterar Ninja por ID";
+    //Update de ninja por ID
+    @PutMapping("/update/{id}")
+    public NinjaModel update(@PathVariable Long id, @RequestBody NinjaModel ninjaUpdate){
+        return ninjaService.update(id, ninjaUpdate);
     }
 
-    @DeleteMapping("/deletarPorID")
-    public String DeletarPorID(){
-        return "deletar Ninja por id";
+    //Deletar por ID(delete)
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){
+        ninjaService.delete(id);
     }
+
 
 
 }

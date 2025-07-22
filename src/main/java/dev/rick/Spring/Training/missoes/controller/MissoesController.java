@@ -16,7 +16,10 @@ public class MissoesController {
         this.missoesService = missoesService;
     }
 
-    //@PostMapping
+    @PostMapping("/save")
+    public MissoesModel save(MissoesModel missoesModel){
+        return missoesService.save(missoesModel);
+    }
 
     @GetMapping("/all")
     public List<MissoesModel> Findall(){
@@ -28,9 +31,14 @@ public class MissoesController {
         return missoesService.findById(id);
     }
 
-    //@PutMapping
+    @PutMapping("/update/{id}")
+    public MissoesModel update(@PathVariable Long id, @RequestBody MissoesModel missoesUpdate){
+        return missoesService.update(id, missoesUpdate);
+    }
 
-    //@DeleteMapping
-
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){
+        missoesService.delete(id);
+    }
 
 }
