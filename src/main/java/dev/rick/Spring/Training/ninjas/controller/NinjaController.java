@@ -1,5 +1,6 @@
 package dev.rick.Spring.Training.ninjas.controller;
 
+import dev.rick.Spring.Training.ninjas.dto.NinjaDTO;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import dev.rick.Spring.Training.ninjas.services.NinjaService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class NinjaController {
     }
 
     @PostMapping("/save")
-    public NinjaModel save(@RequestBody NinjaModel ninja){
+    public NinjaDTO save(@RequestBody NinjaDTO ninja){
         return ninjaService.save(ninja);
     }
 

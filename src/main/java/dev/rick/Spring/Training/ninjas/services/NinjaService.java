@@ -1,5 +1,7 @@
 package dev.rick.Spring.Training.ninjas.services;
 
+import dev.rick.Spring.Training.ninjas.dto.NinjaDTO;
+import dev.rick.Spring.Training.ninjas.mapper.NinjaMapper;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import dev.rick.Spring.Training.ninjas.repository.NinjaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,19 @@ import java.util.Optional;
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
     }
 
     //Put
-    public NinjaModel save(NinjaModel ninja){
-        return ninjaRepository.save(ninja);
+    public NinjaDTO save(NinjaDTO ninjaDTO){
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
+
     }
 
     //GetAll
