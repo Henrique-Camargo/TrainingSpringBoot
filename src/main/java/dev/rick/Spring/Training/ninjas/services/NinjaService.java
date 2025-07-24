@@ -1,5 +1,7 @@
 package dev.rick.Spring.Training.ninjas.services;
 
+import dev.rick.Spring.Training.ninjas.dto.NinjaDTO;
+import dev.rick.Spring.Training.ninjas.mapper.NinjaMapper;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import dev.rick.Spring.Training.ninjas.repository.NinjaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,37 +10,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
     }
 
-    //Put
-    public NinjaModel save(NinjaModel ninja){
-        return ninjaRepository.save(ninja);
+    public NinjaDTO save(NinjaDTO ninjaDTO){
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
+
     }
 
-    //GetAll
-    public List<NinjaModel> FindAll(){
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> FindAll(){
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    //GetById
-    public NinjaModel findById(Long id){
+    public NinjaDTO findById(Long id){
         Optional<NinjaModel> findById = ninjaRepository.findById(id);
-        return findById.orElse(null);
+        return findById.map(ninjaMapper::map).orElse(null);
     }
 
-    //UpdateById
-    public NinjaModel update(Long id, NinjaModel ninjaUpdate){
-        if (ninjaRepository.existsById(id)){
+    public NinjaDTO update(Long id, NinjaDTO ninjaDTO){
+        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+        if (ninjaExistente.isPresent()){
+            NinjaModel ninjaUpdate = ninjaMapper.map(ninjaDTO);
             ninjaUpdate.setId(id);
-            return ninjaRepository.save(ninjaUpdate);
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaUpdate);
+            return ninjaMapper.map(ninjaSalvo);
         }
         return null;
     }

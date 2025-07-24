@@ -1,5 +1,6 @@
 package dev.rick.Spring.Training.ninjas.controller;
 
+import dev.rick.Spring.Training.ninjas.dto.NinjaDTO;
 import dev.rick.Spring.Training.ninjas.model.NinjaModel;
 import dev.rick.Spring.Training.ninjas.services.NinjaService;
 import org.springframework.web.bind.annotation.*;
@@ -17,24 +18,24 @@ public class NinjaController {
     }
 
     @PostMapping("/save")
-    public NinjaModel save(@RequestBody NinjaModel ninja){
+    public NinjaDTO save(@RequestBody NinjaDTO ninja){
         return ninjaService.save(ninja);
     }
 
     @GetMapping("/get")
-    public List<NinjaModel> findAll(){
+    public List<NinjaDTO> findAll(){
        return ninjaService.FindAll();
     }
 
     //
     @GetMapping("/get/{id}")
-    public NinjaModel findById(@PathVariable Long id){
+    public NinjaDTO findById(@PathVariable Long id){
         return ninjaService.findById(id);
     }
 
     //Update de ninja por ID
     @PutMapping("/update/{id}")
-    public NinjaModel update(@PathVariable Long id, @RequestBody NinjaModel ninjaUpdate){
+    public NinjaDTO update(@PathVariable Long id, @RequestBody NinjaDTO ninjaUpdate){
         return ninjaService.update(id, ninjaUpdate);
     }
 
