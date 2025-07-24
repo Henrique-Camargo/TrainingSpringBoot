@@ -23,19 +23,19 @@ public class NinjaController {
     }
 
     @GetMapping("/get")
-    public List<NinjaModel> findAll(){
+    public List<NinjaDTO> findAll(){
        return ninjaService.FindAll();
     }
 
     //
     @GetMapping("/get/{id}")
-    public NinjaModel findById(@PathVariable Long id){
+    public NinjaDTO findById(@PathVariable Long id){
         return ninjaService.findById(id);
     }
 
     //Update de ninja por ID
     @PutMapping("/update/{id}")
-    public NinjaModel update(@PathVariable Long id, @RequestBody NinjaModel ninjaUpdate){
+    public NinjaDTO update(@PathVariable Long id, @RequestBody NinjaDTO ninjaUpdate){
         return ninjaService.update(id, ninjaUpdate);
     }
 

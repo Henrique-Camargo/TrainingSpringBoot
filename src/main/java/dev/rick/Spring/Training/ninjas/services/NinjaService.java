@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -22,7 +23,6 @@ public class NinjaService {
         this.ninjaMapper = ninjaMapper;
     }
 
-    //Put
     public NinjaDTO save(NinjaDTO ninjaDTO){
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninja = ninjaRepository.save(ninja);
@@ -30,22 +30,25 @@ public class NinjaService {
 
     }
 
-    //GetAll
-    public List<NinjaModel> FindAll(){
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> FindAll(){
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    //GetById
-    public NinjaModel findById(Long id){
+    public NinjaDTO findById(Long id){
         Optional<NinjaModel> findById = ninjaRepository.findById(id);
-        return findById.orElse(null);
+        return findById.map(ninjaMapper::map).orElse(null);
     }
 
-    //UpdateById
-    public NinjaModel update(Long id, NinjaModel ninjaUpdate){
-        if (ninjaRepository.existsById(id)){
+    public NinjaDTO update(Long id, NinjaDTO ninjaDTO){
+        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+        if (ninjaExistente.isPresent()){
+            NinjaModel ninjaUpdate = ninjaMapper.map(ninjaDTO);
             ninjaUpdate.setId(id);
-            return ninjaRepository.save(ninjaUpdate);
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaUpdate);
+            return ninjaMapper.map(ninjaSalvo);
         }
         return null;
     }
